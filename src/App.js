@@ -16,14 +16,15 @@ function App() {
         const res = await axios.get('/jwtid', {
           withCredentials: true
         });        
-        setUserId(res.data);   
-        dispatch(fetchUser(res.data))
+        setUserId(res.data);           
       } catch (error) {
         console.log(error);
       }
     }    
     getToken();
-  }, [dispatch]);
+
+    userId && dispatch(fetchUser(userId));
+  }, [userId, dispatch]);
 
   return (
     <AuthContext.Provider value={userId} >

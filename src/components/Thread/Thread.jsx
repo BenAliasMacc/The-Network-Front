@@ -10,21 +10,32 @@ import Card from '../Card/Card';
 const Thread = () => {
 
     const [loadPost, setLoadPost] = useState(true);
+    const [count, setCount] = useState(5);
     const dispatch = useDispatch();
-    const { posts, loading } = useSelector(selectPost);
+    const { posts } = useSelector(selectPost);
+
+    const loadMore = () => {
+        if (window.innerHeight + document.documentElement.scrollTop + 1 > document.scrollingElement.scrollHeight) {
+            setLoadPost(true)
+        };
+    };
     
     useEffect(() => {
       if (loadPost) {
-        dispatch(fetchPost())
-        setLoadPost(false)
-      }
-    }, [loadPost, dispatch]);
+        dispatch(fetchPost(count));
+        setLoadPost(false);
+        setCount(count + 5);
+      };
+
+      window.addEventListener('scroll', loadMore);
+      return () => window.removeEventListener('scroll', loadMore);
+    }, [loadPost, dispatch, count]);
     
     return (
         <div>
             <ul>
-                {!isEmpty(posts) && posts.map((post) => {
-                    return <Card post={post} loadingStatus={loading} key={uuid()}/>
+                {!isEmpty(posts[0]) && posts.map((post) => {
+                    return <Card post={post} key={uuid()}/>
                 })}
             </ul>
         </div>

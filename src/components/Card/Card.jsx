@@ -9,13 +9,33 @@ import { selectUser } from "../../redux/reducers/userSlice";
 import FollowHandler from "../FollowHandler/FollowHandler";
 import commentIcon from "../../assets/icons/message1.svg";
 import shareIcon from "../../assets/icons/share.svg";
+import editButton from "../../assets/icons/edit.svg";
 import LikeButton from "../LikeButton/LikeButton";
+import axios from "axios";
+
 
 const Card = ({ post }) => {
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false);
+    const [isUpdated, setIsUpdated] = useState(false);
+    const [textUpdate, setTextUpdate] = useState(post.message);
     const { users } = useSelector(selectUsers); 
     const { user } = useSelector(selectUser); 
+    console.log(textUpdate);
+    console.log(isLoading);
+
+    const updatePost = async () => {
+        const newPost = {
+            ...post,
+            message: textUpdate
+        };
+
+        try {
+            await axios.put(`/api/post/${post._id}`, newPost)
+        } catch (error) {
+            
+        }
+    };
 
     useEffect(() => {
       !isEmpty(users[0]) && setIsLoading(false)
@@ -39,8 +59,9 @@ const Card = ({ post }) => {
                 <>
                     <div className="card-left" >
                         <img src={
-                            users.map((elt) => {
-                                if (elt._id === post.posterId) return elt.picture
+                            !isEmpty(users[0]) && users.map((elt) => {
+                                if (elt._id === post.posterId) return elt.picture;
+                                else return null;
                             }).join("")
                         } alt="poster-pic" />
                     </div>        
@@ -48,17 +69,32 @@ const Card = ({ post }) => {
                         <div className="card-header">
                             <div className="pseudo">
                                 <h3>
-                                    {users.map((elt) => {
-                                        if (elt._id === post.posterId) return elt.pseudo
+                                    {!isEmpty(users[0]) && users.map((elt) => {
+                                        if (elt._id === post.posterId) return elt.pseudo;
+                                        else return null;
                                     })}
                                 </h3>
-                                {post.posterID !== user._id &&
+                                {post.posterId !== user._id &&
                                     <FollowHandler idToFollow={post.posterId} type="card" />                                
                                 }
                             </div>
                             <span>{dateParser(post.createdAt)}</span>        
                         </div>
-                        <p>{post.message}</p>
+                        {isUpdated ? (
+                            <div className="update-post">
+                                <textarea 
+                                    defaultValue={post.message}
+                                    onChange={(e) => setTextUpdate(e.target.value)}
+                                />
+                                <div className="button-container">
+                                    <button className="btn" onClick={updatePost}>
+                                        Valider Modification
+                                    </button>
+                                </div>
+                            </div>
+                        ):
+                            <p>{post.message}</p>
+                        }
                         {post.picture && <img src={post.picture} alt="card-pic" className="card-pic" /> }
                         {post.video && (
                             <iframe
@@ -70,6 +106,13 @@ const Card = ({ post }) => {
                                 allowFullScreen
                                 title={post._id}
                             ></iframe>                            
+                        )}
+                        {user._id === post.posterId && (
+                            <div className="button-container">
+                                <div onClick={() => setIsUpdated(!isUpdated)} >
+                                    <img src={editButton} alt="edit" />
+                                </div>
+                            </div>
                         )}
                         <div className="card-footer">
                             <div className="comment-icon">

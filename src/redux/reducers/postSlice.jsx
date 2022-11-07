@@ -3,10 +3,11 @@ import axios from "axios";
 
 const url = "http://localhost:5000/api/post/"
 
-export const fetchPost = createAsyncThunk('post/fetchPost', async () => {
+export const fetchPost = createAsyncThunk('post/fetchPost', async (num) => {
     try {
         const response = await axios(url);
-        return response.data;
+        const array = response.data.slice(0, num)
+        return array;
     } catch (error) {
         console.log(error);
     };
@@ -20,19 +21,24 @@ export const postSlice = createSlice({
         error: false
     },
     reducers: {
-        // editUser: (state, action) => {
-        //     state.user.following = [...state.user.following, action.payload]
-        // },
-        likePost: (state, action) => {
+        updatePost: (state, action) => {
             state.post.map((post) => {
-                if(post._id === action.payload.postId) {
-                    post.likers = [...post.likers, action.payload.userId]
-                }                
+                if(post._id === action.payload.postId) return post.likers = [...post.likers, action.payload.userId];
+                else return null;             
             })
         },
-        // removeFollow: (state, action) => {
-        //     state.user.following = state.user.following.filter((id) => id !== action.payload)
-        // }
+        likePost: (state, action) => {
+            state.post.map((post) => {
+                if(post._id === action.payload.postId) return post.likers = [...post.likers, action.payload.userId];
+                else return null;             
+            })
+        },
+        unlikePost: (state, action) => {
+            state.post.map((post) => {
+                if(post._id === action.payload.postId) return post.likers = post.likers.filter((id) => id !== action.payload.userId)              
+                else return null;
+            })
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchPost.pending, (state) => {
@@ -58,6 +64,6 @@ export const selectPost = createSelector(
     }), (state) =>  state
 );
 
-export const { likePost } = postSlice.actions;
+export const { likePost, unlikePost } = postSlice.actions;
 
 export default postSlice.reducer;

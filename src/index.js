@@ -10,7 +10,7 @@ import { fetchPost } from './redux/reducers/postSlice';
 
 
 store.dispatch(fetchUsers());
-// store.dispatch(fetchPost());
+store.dispatch(fetchPost());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
