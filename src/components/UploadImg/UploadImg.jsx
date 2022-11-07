@@ -7,7 +7,7 @@ const UploadImg = () => {
 
     const [file, setFile] = useState();
     const dispatch = useDispatch();
-    const { user, loading } = useSelector(selectUser);
+    const { user } = useSelector(selectUser);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -83,7 +83,8 @@ const Card = ({ post }) => {
                         {isUpdated ? (
                             <div className="update-post">
                                 <textarea 
-                                    defaultValue={post.message}
+                                    type="text"
+                                    value={textUpdate}
                                     onChange={(e) => setTextUpdate(e.target.value)}
                                 />
                                 <div className="button-container">

@@ -32,7 +32,7 @@ const Thread = () => {
     }, [loadPost, dispatch, count]);
     
     return (
-        <div>
+        <div className="thread-container">
             <ul>
                 {!isEmpty(posts[0]) && posts.map((post) => {
                     return <Card post={post} key={uuid()}/>

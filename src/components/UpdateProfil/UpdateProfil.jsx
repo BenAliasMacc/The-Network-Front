@@ -94,8 +94,9 @@ const UpdateProfil = () => {
                                                 <FollowHandler idToFollow={elt._id} type="suggestion" />
                                             </li>
                                         )
-                                    }                                    
+                                    }                               
                                 }
+                                return null;
                             })}
                         </ul>
                     </div>
@@ -119,6 +120,7 @@ const UpdateProfil = () => {
                                         )
                                     }                                    
                                 }
+                                return null;
                             })}
                         </ul>
                     </div>
