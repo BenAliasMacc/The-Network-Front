@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUsers } from '../../redux/reducers/usersSlice';
 import {ThreeCircles } from "react-loader-spinner";
 import { useEffect } from "react";
 import { dateParser, isEmpty } from "../../utils/utils";
 import { selectUser } from "../../redux/reducers/userSlice";
+import { updatePost } from "../../redux/reducers/postSlice";
 import FollowHandler from "../FollowHandler/FollowHandler";
 import commentIcon from "../../assets/icons/message1.svg";
 import shareIcon from "../../assets/icons/share.svg";
 import editButton from "../../assets/icons/edit.svg";
 import LikeButton from "../LikeButton/LikeButton";
 import axios from "axios";
+import DeleteCard from "../DeleteCard/DeleteCard";
+import CardComments from "../CardComments/CardComments";
 
 
 const Card = ({ post }) => {
@@ -18,13 +21,12 @@ const Card = ({ post }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isUpdated, setIsUpdated] = useState(false);
     const [textUpdate, setTextUpdate] = useState(null);
+    const [showComments, setShowComments] = useState(false);
     const { users } = useSelector(selectUsers); 
-    const { user } = useSelector(selectUser); 
-    console.log(users[0]);
-    console.log(isLoading);
-    console.log(isUpdated);
+    const { user } = useSelector(selectUser);
+    const dispatch = useDispatch();
 
-    const updatePost = async () => {
+    const handleUpdatePost = async () => {
         const newPost = {
             ...post,
             message: textUpdate
@@ -35,10 +37,11 @@ const Card = ({ post }) => {
         } catch (error) {
             console.log(error);
         }
+        setIsUpdated(false);
+        dispatch(updatePost({postId: post._id, message: textUpdate}));
     };
 
     useEffect(() => {
-        console.log('test');
       !isEmpty(users[0]) && setIsLoading(false)
     }, [users]);   
 
@@ -88,7 +91,7 @@ const Card = ({ post }) => {
                                     onChange={(e) => setTextUpdate(e.target.value)}
                                 />
                                 <div className="button-container">
-                                    <button className="btn" onClick={updatePost}>
+                                    <button className="btn" onClick={handleUpdatePost}>
                                         Valider Modification
                                     </button>
                                 </div>
@@ -113,16 +116,18 @@ const Card = ({ post }) => {
                                 <div onClick={() => setIsUpdated(!isUpdated)} >
                                     <img src={editButton} alt="edit" />
                                 </div>
+                                <DeleteCard id={post._id} />
                             </div>
                         )}
                         <div className="card-footer">
                             <div className="comment-icon">
-                                <img src={commentIcon} alt="comment" />
+                                <img onClick={() => setShowComments(!showComments)} src={commentIcon} alt="comment" />
                                 <span>{post.comments ? post.comments.length : "0"}</span>
                             </div>
                             <LikeButton post={post} />
                             <img src={shareIcon} alt="share" />
-                        </div>                        
+                        </div>
+                        {showComments && <CardComments post={post} />}                     
                     </div>
                 </>
             )

@@ -23,9 +23,12 @@ export const postSlice = createSlice({
     reducers: {
         updatePost: (state, action) => {
             state.post.map((post) => {
-                if(post._id === action.payload.postId) return post.likers = [...post.likers, action.payload.userId];
+                if(post._id === action.payload.postId) return post.message =  action.payload.message;
                 else return null;             
             })
+        },
+        deletePost: (state, action) => {
+            state.post = state.post.filter((post) => post._id !== action.payload.id);
         },
         likePost: (state, action) => {
             state.post.map((post) => {
@@ -64,6 +67,6 @@ export const selectPost = createSelector(
     }), (state) =>  state
 );
 
-export const { likePost, unlikePost } = postSlice.actions;
+export const { likePost, unlikePost, updatePost, deletePost } = postSlice.actions;
 
 export default postSlice.reducer;

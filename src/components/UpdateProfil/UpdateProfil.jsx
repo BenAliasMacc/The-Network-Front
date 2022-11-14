@@ -11,7 +11,7 @@ import FollowHandler from '../FollowHandler/FollowHandler';
 
 const UpdateProfil = () => {
 
-    const { user, loading } = useSelector(selectUser); 
+    const { user } = useSelector(selectUser); 
     const { users } = useSelector(selectUsers); 
     const [updateForm, setUpdateForm] = useState(false); 
     const [bio, setBio] = useState(user.bio);  
@@ -21,8 +21,6 @@ const UpdateProfil = () => {
     const [followingModal, setFollowingModal] = useState(false);
     const [followersModal, setFollowersModal] = useState(false);
     const dispatch = useDispatch();
-    console.log(users);
-    console.log(loading);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
