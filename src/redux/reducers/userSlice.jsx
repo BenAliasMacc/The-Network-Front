@@ -7,7 +7,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
     try {
         //const response = await fetch(`url`); //where you want to fetch data
         //Your Axios code part.
-        const response = await axios(url + userId);//where you want to fetch data
+        const response = await axios.get(url + userId);//where you want to fetch data
         return response.data;
     } catch (error) {
         console.log(error);
@@ -22,14 +22,14 @@ export const userSlice = createSlice({
         error: false
     },
     reducers: {
-        editUser: (state, action) => {
-            state.user.following = [...state.user.following, action.payload]
+        editUser: (state, { payload }) => {
+            state.user.following.push(payload)
         },
-        addFollow: (state, action) => {
-            state.user.following = [...state.user.following, action.payload]
+        addFollow: (state, { payload }) => {
+            state.user.following.push(payload)
         },
-        removeFollow: (state, action) => {
-            state.user.following = state.user.following.filter((id) => id !== action.payload)
+        removeFollow: (state, { payload }) => {
+            state.user.following = state.user.following.filter((id) => id !== payload)
         }
     },
     extraReducers: (builder) => {

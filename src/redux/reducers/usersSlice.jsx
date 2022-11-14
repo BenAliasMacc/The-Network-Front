@@ -5,7 +5,7 @@ const url = "http://localhost:5000/api/user/"
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
     try {
-        const response = await axios(url);
+        const response = await axios.get(url);
         return response.data;
     } catch (error) {
         console.log(error);

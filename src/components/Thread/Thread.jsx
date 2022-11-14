@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPost, selectPost } from "../../redux/reducers/postSlice";
 import { useState } from 'react';
@@ -35,7 +34,7 @@ const Thread = () => {
         <div className="thread-container">
             <ul>
                 {!isEmpty(posts[0]) && posts.map((post) => {
-                    return <Card post={post} key={uuid()}/>
+                    return <Card post={post} key={post._id}/>
                 })}
             </ul>
         </div>

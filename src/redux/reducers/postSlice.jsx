@@ -5,8 +5,8 @@ const url = "http://localhost:5000/api/post/"
 
 export const fetchPost = createAsyncThunk('post/fetchPost', async (num) => {
     try {
-        const response = await axios(url);
-        const array = response.data.slice(0, num)
+        const response = await axios.get(url);
+        const array = response.data.slice(0, num);
         return array;
     } catch (error) {
         console.log(error);

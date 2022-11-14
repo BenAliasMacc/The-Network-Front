@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useSelector } from 'react-redux';
 import { selectUsers } from '../../redux/reducers/usersSlice';
-import {ThreeCircles } from "react-loader-spinner"
-import { v4 as uuid } from 'uuid';
+import {ThreeCircles } from "react-loader-spinner";
 import { useEffect } from "react";
 import { dateParser, isEmpty } from "../../utils/utils";
 import { selectUser } from "../../redux/reducers/userSlice";
@@ -16,13 +15,14 @@ import axios from "axios";
 
 const Card = ({ post }) => {
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [isUpdated, setIsUpdated] = useState(false);
-    const [textUpdate, setTextUpdate] = useState(post.message);
+    const [textUpdate, setTextUpdate] = useState(null);
     const { users } = useSelector(selectUsers); 
     const { user } = useSelector(selectUser); 
-    console.log(textUpdate);
+    console.log(users[0]);
     console.log(isLoading);
+    console.log(isUpdated);
 
     const updatePost = async () => {
         const newPost = {
@@ -33,16 +33,17 @@ const Card = ({ post }) => {
         try {
             await axios.put(`/api/post/${post._id}`, newPost)
         } catch (error) {
-            
+            console.log(error);
         }
     };
 
     useEffect(() => {
+        console.log('test');
       !isEmpty(users[0]) && setIsLoading(false)
     }, [users]);   
 
     return (
-        <li className="card-container" key={uuid()}>
+        <li className="card-container">
             {isLoading ? (
                 <div className="loader">
                     <ThreeCircles 
@@ -83,8 +84,7 @@ const Card = ({ post }) => {
                         {isUpdated ? (
                             <div className="update-post">
                                 <textarea 
-                                    type="text"
-                                    value={textUpdate}
+                                    defaultValue={post.message}
                                     onChange={(e) => setTextUpdate(e.target.value)}
                                 />
                                 <div className="button-container">
