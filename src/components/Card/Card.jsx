@@ -42,7 +42,7 @@ const Card = ({ post }) => {
     }, [users]);   
 
     return (
-        <li className="card-container" key={uuid()}>
+        <li className="card-container">
             {isLoading ? (
                 <div className="loader">
                     <ThreeCircles 

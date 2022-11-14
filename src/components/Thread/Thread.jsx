@@ -35,7 +35,7 @@ const Thread = () => {
         <div className="thread-container">
             <ul>
                 {!isEmpty(posts[0]) && posts.map((post) => {
-                    return <Card post={post} key={uuid()}/>
+                    return <Card post={post} key={post._id} />
                 })}
             </ul>
         </div>
