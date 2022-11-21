@@ -41,7 +41,13 @@ export const postSlice = createSlice({
                 if(post._id === action.payload.postId) return post.likers = post.likers.filter((id) => id !== action.payload.userId)              
                 else return null;
             })
-        }
+        },
+        unlikePost: (state, action) => {
+            state.post.map((post) => {
+                if(post._id === action.payload.postId) return post.likers = post.likers.filter((id) => id !== action.payload.userId)              
+                else return null;
+            })
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchPost.pending, (state) => {

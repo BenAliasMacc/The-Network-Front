@@ -19,14 +19,7 @@ const NewPostForm = () => {
     const { user } = useSelector(selectUser);
     const dispatch = useDispatch();
 
-    const handlePicture = (e) => {
-        setPostPicture(URL.createObjectURL(e.target.files[0]));
-        setFile(e.target.files[0]);
-        setVideo("");
-    };
-
-    const handlePost = async (e) => {
-        e.preventDefault();
+    const handlePost = async () => {
         if (message || postPicture || video) {
             const data = new FormData();
             data.append('posterId', user._id);
@@ -34,12 +27,7 @@ const NewPostForm = () => {
             if (file) data.append("file", file);
             data.append("video", video);
 
-            try {
-                console.log("test");
-                await axios.post('/api/post/', data);
-            } catch (error) {
-                console.log(error);
-            };            
+            await axios.post('/api/post/', data);    
             dispatch(fetchPost());
             cancelPost();
         } else {
@@ -47,28 +35,34 @@ const NewPostForm = () => {
         }
     };
 
+    const handlePicture = (e) => {
+        setPostPicture(URL.createObjectURL(e.target.files[0]));
+        setFile(e.target.files[0]);
+        setVideo("");
+    };
+
     const cancelPost = () => {
         setMessage("");
         setPostPicture("");
         setVideo("");
-        setFile();
-    };
-
-    const handleVideo = () => {
-        let findLink = message.split (" ");
-        for (let i = 0; i < findLink.length; i++) {
-            if (findLink[i].includes('https://www.yout') || findLink[i].includes('https://yout')) {
-                let embed = findLink[i].replace('watch?v=', 'embed/');
-                setVideo(embed.split('&')[0]);
-                findLink.splice(i, 1);
-                setMessage(findLink.join(" "));
-                setPostPicture("");
-            };
-        };
+        setFile("");
     };
 
     useEffect(() => {
         if (!isEmpty(user)) setIsLoading(false);
+        
+        const handleVideo = () => {
+            let findLink = message.split (" ");
+            for (let i = 0; i < findLink.length; i++) {
+                if (findLink[i].includes('https://www.yout') || findLink[i].includes('https://yout')) {
+                    let embed = findLink[i].replace('watch?v=', 'embed/');
+                    setVideo(embed.split('&')[0]);
+                    findLink.splice(i, 1);
+                    setMessage(findLink.join(" "));
+                    setPostPicture("");
+                };
+            };
+        };
         handleVideo();
     }, [user, message, video]);
     
@@ -100,7 +94,7 @@ const NewPostForm = () => {
                             <img src={user.picture} alt="user-img" />
                         </div>
                     </Link>
-                    <form className="post-form">
+                    <div className="post-form">
                         <textarea 
                             name='message' 
                             id='message' 
@@ -155,7 +149,7 @@ const NewPostForm = () => {
                                 <button className="send" onClick={handlePost}>Envoyer</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </>
             )}
         </div>

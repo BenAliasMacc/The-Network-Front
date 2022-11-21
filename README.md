@@ -1,3 +1,3 @@
 # Future feature
 
-1. Reload des posts
+1. Fetch All Post
