@@ -7,7 +7,7 @@ const DeleteCard = ({ id }) => {
 
     const dispatch = useDispatch();
 
-    const deleteQuote = async () => {
+    const deleteCard = async () => {
         try {
             await axios.delete(`/api/post/${id}`);
         } catch (error) {
@@ -18,7 +18,7 @@ const DeleteCard = ({ id }) => {
 
     const handleDelete = () => {
         if (window.confirm('Souhaitez-vous supprimer cet article ?')) {
-            deleteQuote();
+            deleteCard();
         }
     }
 
@@ -29,4 +29,4 @@ const DeleteCard = ({ id }) => {
     )
 }
 
-export default DeleteCard
+export default DeleteCard;

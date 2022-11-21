@@ -13,8 +13,6 @@ const Thread = () => {
     const dispatch = useDispatch();
     const { posts } = useSelector(selectPost);
 
-    console.log(!isEmpty(posts[0]));
-
     const loadMore = () => {
         if (window.innerHeight + document.documentElement.scrollTop + 1 > document.scrollingElement.scrollHeight) {
             setLoadPost(true)
