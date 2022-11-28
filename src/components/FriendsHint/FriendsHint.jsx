@@ -22,7 +22,7 @@ const FriendsHint = () => {
             users.map((elt) => {
                 if (user._id !== elt._id && !elt.followers.includes(user._id)) {
                     return array.push(elt._id);
-                };
+                } return null;
             });
             array.sort(() => 0.5 - Math.random());
             if (window.innerHeight > 780) {
@@ -74,7 +74,7 @@ const FriendsHint = () => {
                                         <FollowHandler idToFollow={users[i]._id} type={"suggestion"} />
                                     </li>
                                 )
-                            }
+                            } return null;
                         }
                     })}
                 </ul>
