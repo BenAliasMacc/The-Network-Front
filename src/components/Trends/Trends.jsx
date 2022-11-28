@@ -51,7 +51,7 @@ const Trends = () => {
                                             <img src={users[0] && users.map((user) => {
                                                 if (user._id === post.posterId) {
                                                     return user.picture;                                                    
-                                                }
+                                                } return null;
                                             }).join("")} alt="profil-pic" />
                                         )}
                                     </div>
