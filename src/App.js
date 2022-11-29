@@ -13,7 +13,7 @@ function App() {
   useEffect( () => {
     const getToken = async () => {
       try {
-        const res = await axios.get('/jwtid', {
+        const res = await axios.get('http://localhost:5000/jwtid', {
           withCredentials: true
         });        
         setUserId(res.data);           
