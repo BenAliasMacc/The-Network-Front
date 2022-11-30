@@ -16,7 +16,7 @@ const SignIn = () => {
                     email,
                     password
                 }
-            )kljkjlkjkljl
+            )
             setEmailError(null);
             setPasswordError(null);
             window.location.href = "/";
