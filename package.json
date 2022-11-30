@@ -47,5 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://vercel.com/benaliasmacc/social-network-back"
+  "proxy": "https://social-network-back.vercel.app/"
 }
