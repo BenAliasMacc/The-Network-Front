@@ -13,8 +13,6 @@ const Trends = () => {
     const trends = useSelector((state) => state.trendsSlice.trends)
     const dispatch = useDispatch();
 
-    console.log(users);
-
     useEffect(() => {
         if (!isEmpty(posts[0])) {
             const postsArray = Object.keys(posts).map((i) => posts[i]);

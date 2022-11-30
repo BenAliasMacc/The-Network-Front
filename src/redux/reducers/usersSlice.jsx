@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, createSelector } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = "http://localhost:5000/api/user/"
+const url = "https://vercel.com/benaliasmacc/social-network-back/api/user/"
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
     try {
