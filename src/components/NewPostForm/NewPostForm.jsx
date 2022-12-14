@@ -19,17 +19,23 @@ const NewPostForm = () => {
     const { user } = useSelector(selectUser);
     const dispatch = useDispatch();
 
-    const handlePost = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         if (message || postPicture || video) {
             const data = new FormData();
+            const filename =  user._id + Date.now();
+            data.append('name', filename);
             data.append('posterId', user._id);
             data.append('message', message);
             if (file) data.append("file", file);
             data.append("video", video);
-
-            await axios.post('/api/post/', data);    
-            dispatch(fetchPost());
-            cancelPost();
+            try {
+                await axios.post('/api/post/', data);
+                dispatch(fetchPost());
+                cancelPost();
+            } catch (error) {
+                console.log(error);
+            }            
         } else {
             alert("Veuillez entrer un message")
         }
@@ -128,7 +134,7 @@ const NewPostForm = () => {
                                 </div>
                             </li>
                         ): null}
-                        <div className="footer-form">
+                        <form className="footer-form" onSubmit={handleSubmit} encType="multipart/form-data" >
                             <div className="icon">
                                 {isEmpty(video) && (
                                     <>  
@@ -146,9 +152,9 @@ const NewPostForm = () => {
                                 {message || postPicture || video.length > 20 ? (
                                     <button className='cancel' onClick={cancelPost}>Annuler Message</button>
                                 ): null}
-                                <button className="send" onClick={handlePost}>Envoyer</button>
+                                <button className="send">Envoyer</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </>
             )}

@@ -25,7 +25,7 @@ const UploadImg = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data" >
             <label htmlFor="file">Changer d'image</label>
             <input type="file" name="file" id="file" accept=".jpg, .jpeg, .png" onChange={(e) => setFile(e.target.files[0])} style={{display: "none"}} />
             <input type="submit" value="Envoyer" />
