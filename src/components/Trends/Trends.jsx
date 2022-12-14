@@ -13,8 +13,6 @@ const Trends = () => {
     const trends = useSelector((state) => state.trendsSlice.trends)
     const dispatch = useDispatch();
 
-    console.log(users);
-
     useEffect(() => {
         if (!isEmpty(posts[0])) {
             const postsArray = Object.keys(posts).map((i) => posts[i]);
@@ -51,7 +49,7 @@ const Trends = () => {
                                             <img src={users[0] && users.map((user) => {
                                                 if (user._id === post.posterId) {
                                                     return user.picture;                                                    
-                                                }
+                                                } return null;
                                             }).join("")} alt="profil-pic" />
                                         )}
                                     </div>

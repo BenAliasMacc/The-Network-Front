@@ -74,8 +74,8 @@ const FriendsHint = () => {
                                         <FollowHandler idToFollow={users[i]._id} type={"suggestion"} />
                                     </li>
                                 )
-                            } return null;
-                        }
+                            }
+                        } return null;
                     })}
                 </ul>
             )
