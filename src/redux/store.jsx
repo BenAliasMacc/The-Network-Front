@@ -12,6 +12,7 @@ export const store = configureStore({
         postSlice: postSlice.reducer,
         trendsSlice: trendsSlice.reducer
     },
+    devTools: false
     // middleware: (getDefaultMiddleware) =>
     // getDefaultMiddleware().concat(userSlice.middleware),
 });
