@@ -13,7 +13,7 @@ function App() {
   useEffect( () => {
     const getToken = async () => {
       try {
-        const res = await axios.get('https://social-network-back.vercel.app/jwtid', {
+        const res = await axios.get('https://rayscheep-family-api.onrender.com/jwtid', {
           withCredentials: true
         });        
         setUserId(res.data);           
