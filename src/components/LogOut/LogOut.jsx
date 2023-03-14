@@ -1,6 +1,7 @@
 import axios from "axios";
 import cookie from "js-cookie";
 import logout from "../../assets/icons/logout.svg";
+import requests from "../../api/requests";
 
 const LogOut = () => {
 
@@ -10,7 +11,7 @@ const LogOut = () => {
         }
 
         try {
-            await axios.post('/api/user/logout', {
+            await axios.post(requests.logOut, {
                 withCredentials: true
             })
             removeCookie();

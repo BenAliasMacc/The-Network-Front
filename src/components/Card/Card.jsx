@@ -14,6 +14,7 @@ import LikeButton from "../LikeButton/LikeButton";
 import axios from "axios";
 import DeleteCard from "../DeleteCard/DeleteCard";
 import CardComments from "../CardComments/CardComments";
+import requests from "../../api/requests";
 
 
 const Card = ({ post }) => {
@@ -24,7 +25,7 @@ const Card = ({ post }) => {
     const [showComments, setShowComments] = useState(false);
     const { users } = useSelector(selectUsers); 
     const { user } = useSelector(selectUser);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch();    
 
     const handleUpdatePost = async () => {
         const newPost = {
@@ -33,7 +34,7 @@ const Card = ({ post }) => {
         };
 
         try {
-            await axios.put(`/api/post/${post._id}`, newPost)
+            await axios.put(requests.getPost + post._id, newPost)
         } catch (error) {
             console.log(error);
         }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import requests from "../../api/requests";
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ const SignIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('https://rayscheep-family-api.onrender.com/api/auth/login', 
+            await axios.post(requests.logIn, 
                 {
                     withCredentials: true,
                     email,

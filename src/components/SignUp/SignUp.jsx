@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react"
 import SignIn from "../../components/SignIn/SignIn";
+import requests from "../../api/requests";
 
 const SignUp = () => {
 
@@ -24,7 +25,7 @@ const SignUp = () => {
         if (!terms) return setTermsError("Les conditions générales doivent être validé");
 
         try {
-            await axios.post('/api/auth/register', {
+            await axios.post(requests.createUser, {
                 withCredentials: true,
                 pseudo,
                 email,

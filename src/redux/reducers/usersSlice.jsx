@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice, createSelector } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const url = "https://rayscheep-family-api.onrender.com/api/user/"
+import requests from "../../api/requests";
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
     try {
-        const response = await axios.get(url);
+        const response = await axios.get(requests.getUser);
         return response.data;
     } catch (error) {
         console.log(error);

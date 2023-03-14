@@ -8,20 +8,21 @@ import { fetchUser } from "./redux/reducers/userSlice";
 function App() {
 
   const dispatch = useDispatch();
-  const [userId, setUserId] = useState(null);  
+  const [userId, setUserId] = useState(null); 
 
   useEffect( () => {
-    const getToken = async () => {
-      try {
-        const res = await axios.get('https://rayscheep-family-api.onrender.com/jwtid', {
-          withCredentials: true
-        });        
-        setUserId(res.data);           
-      } catch (error) {
-        console.log(error);
-      }
-    }    
-    getToken();
+    const fetchToken = async () => {
+      await axios({
+        method: "get",
+        url: `http://localhost:5000/jwtid`,
+        withCredentials: true,
+      })
+        .then((res) => {
+          setUserId(res.data);
+        })
+        .catch((err) => console.log("No token"));
+    };
+    fetchToken();
 
     userId && dispatch(fetchUser(userId));
   }, [userId, dispatch]);

@@ -10,7 +10,7 @@ import FriendsHint from "../../components/FriendsHint/FriendsHint";
 const Home = () => {
 
     const userId = useContext(AuthContext);
-
+    
     return (
         <div className="home">
             <LeftNav />
