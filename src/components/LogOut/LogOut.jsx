@@ -14,6 +14,9 @@ const Logout = () => {
       await axios({
         method: "get",
         url: requests.logout,        
+      },
+      {
+        withCredentials: true,
       })
         .then(() => removeCookie("jwt"))
         .catch((err) => console.log(err));
@@ -26,6 +29,6 @@ const Logout = () => {
             <img src={logoutIcon} alt="logout" />
         </li>
     )
-}
+};
 
 export default Logout;
