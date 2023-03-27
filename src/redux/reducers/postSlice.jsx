@@ -4,7 +4,7 @@ import requests from "../../api/requests";
 
 export const fetchPost = createAsyncThunk('post/fetchPost', async (num) => {
     try {
-        const response = await axios.get(requests.getPost);
+        const response = await axios.get(requests.post);
         const array = response.data.slice(0, num);
         return array;
     } catch (error) {

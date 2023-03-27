@@ -16,7 +16,6 @@ import DeleteCard from "../DeleteCard/DeleteCard";
 import CardComments from "../CardComments/CardComments";
 import requests from "../../api/requests";
 
-
 const Card = ({ post }) => {
 
     const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +24,8 @@ const Card = ({ post }) => {
     const [showComments, setShowComments] = useState(false);
     const { users } = useSelector(selectUsers); 
     const { user } = useSelector(selectUser);
-    const dispatch = useDispatch();    
+    const postPicture = requests.baseURL + post.picture.slice(1);
+    const dispatch = useDispatch();
 
     const handleUpdatePost = async () => {
         const newPost = {
@@ -34,7 +34,7 @@ const Card = ({ post }) => {
         };
 
         try {
-            await axios.put(requests.getPost + post._id, newPost)
+            await axios.put(requests.post + post._id, newPost)
         } catch (error) {
             console.log(error);
         }
@@ -64,8 +64,8 @@ const Card = ({ post }) => {
                 <>
                     <div className="card-left" >
                         <img src={
-                            !isEmpty(users[0]) && users.map((elt) => {
-                                if (elt._id === post.posterId) return elt.picture;
+                            !isEmpty(users[0]) && users.map((user) => {
+                                if (user._id === post.posterId) return requests.baseURL + user.picture.slice(1);
                                 else return null;
                             }).join("")
                         } alt="poster-pic" />
@@ -100,7 +100,7 @@ const Card = ({ post }) => {
                         ):
                             <p>{post.message}</p>
                         }
-                        {post.picture && <img src={post.picture} alt="card-pic" className="card-pic" /> }
+                        {post.picture && <img src={postPicture} alt="card-pic" className="card-pic" /> }
                         {post.video && (
                             <iframe
                                 width="500"

@@ -1,31 +1,32 @@
 import axios from "axios";
 import cookie from "js-cookie";
-import logout from "../../assets/icons/logout.svg";
+import logoutIcon from "../../assets/icons/logout.svg";
 import requests from "../../api/requests";
 
-const LogOut = () => {
-
-    const handleLogOut = async () => {
-        const removeCookie = (elt) => {
-            window !== "undefined" && cookie.remove(elt, { expires: 1 })
-        }
-
-        try {
-            await axios.post(requests.logOut, {
-                withCredentials: true
-            })
-            removeCookie();
-            window.location = '/profil';
-        } catch (error) {
-            console.log(error);
-        };
+const Logout = () => {
+    const removeCookie = (key) => {
+      if (window !== "undefined") {
+        cookie.remove(key, { expires: 1 });
+      }
+    };
+  
+    const handleLogout = async () => {
+      await axios({
+        method: "get",
+        url: requests.logout,
+        withCredentials: true,
+      })
+        .then(() => removeCookie("jwt"))
+        .catch((err) => console.log(err));
+      
+      window.location = "/";
     };
 
     return (
-        <li onClick={handleLogOut}>
-            <img src={logout} alt="logout" />
+        <li onClick={handleLogout}>
+            <img src={logoutIcon} alt="logout" />
         </li>
     )
 }
 
-export default LogOut
+export default Logout

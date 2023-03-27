@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import trash from "../../assets/icons/trash.svg";
 import { deletePost } from '../../redux/reducers/postSlice';
+import requests from '../../api/requests';
 
 const DeleteCard = ({ id }) => {
 
@@ -9,7 +10,7 @@ const DeleteCard = ({ id }) => {
 
     const deleteCard = async () => {
         try {
-            await axios.delete(`/api/post/${id}`);
+            await axios.delete(`${requests.post}/${id}`);
         } catch (error) {
             console.log(error);
         }

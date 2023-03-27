@@ -12,10 +12,12 @@ const SignIn = () => {
         e.preventDefault();
         try {
             await axios.post(requests.logIn, 
-                {
-                    withCredentials: true,
+                {                    
                     email,
                     password
+                },
+                {
+                    withCredentials: true
                 }
             )
             setEmailError(null);

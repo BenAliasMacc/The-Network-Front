@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, selectUser } from "../../redux/reducers/userSlice";
+import requests from "../../api/requests";
 
 const UploadImg = () => {
 
@@ -17,7 +18,7 @@ const UploadImg = () => {
         data.append("userId", user._id);
         data.append("file", file);
         try {
-            await axios.post(`/api/user/upload`, data);
+            await axios.post(requests.uploadImg, data);
             dispatch(fetchUser(user._id));
         } catch (error) {
             console.log(error);

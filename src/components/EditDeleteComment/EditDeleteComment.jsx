@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { fetchPost } from "../../redux/reducers/postSlice";
 import { useDispatch } from "react-redux";
-
+import requests from "../../api/requests";
 
 const EditDeleteComment = ({ comment, postId }) => {
 
@@ -19,7 +19,8 @@ const EditDeleteComment = ({ comment, postId }) => {
     const handleEdit = async (e) => {
         e.preventDefault();
         if (text) {
-            await axios.patch(`/api/post/edit-comment/${postId}`, {
+            console.log('test');
+            await axios.patch(`${requests.editComment}/${postId}`, {
                 commentId: comment._id,
                 text
             });
@@ -30,7 +31,7 @@ const EditDeleteComment = ({ comment, postId }) => {
 
     const deleteComment = async () => {
         try {
-            await axios.patch(`/api/post/delete-comment/${postId}`, {
+            await axios.patch(`${requests.deleteComment}/${postId}`, {
                 commentId: comment._id,
             });
         } catch (error) {

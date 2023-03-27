@@ -6,6 +6,7 @@ import { addFollow, removeFollow, selectUser } from "../../redux/reducers/userSl
 import { isEmpty } from "../../utils/utils";
 import checked from "../../assets/icons/checked.svg";
 import check from "../../assets/icons/check.svg";
+import requests from "../../api/requests";
 
 const FollowHandler = ({ idToFollow, type }) => {
 
@@ -16,7 +17,7 @@ const FollowHandler = ({ idToFollow, type }) => {
     const handleFollow = async (e) => {
       e.preventDefault();
       try {
-        await axios.patch(`/api/user/follow/${user._id}`, {idToFollow});
+        await axios.patch(`${requests.follow}/${user._id}`, {idToFollow});
         dispatch(addFollow(idToFollow));
         setIsFollowed(true);
       } catch (error) {
@@ -28,7 +29,7 @@ const FollowHandler = ({ idToFollow, type }) => {
       e.preventDefault();
       const idToUnFollow = idToFollow;
       try {
-        await axios.patch(`/api/user/unfollow/${user._id}`, {idToUnFollow});
+        await axios.patch(`${requests.unfollow}/${user._id}`, {idToUnFollow});
         dispatch(removeFollow(idToUnFollow));
         setIsFollowed(false);
       } catch (error) {

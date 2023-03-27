@@ -7,6 +7,7 @@ import { selectUsers } from "../../redux/reducers/usersSlice";
 import { dateParser, isEmpty } from "../../utils/utils";
 import EditDeleteComment from "../EditDeleteComment/EditDeleteComment";
 import FollowHandler from "../FollowHandler/FollowHandler";
+import requests from "../../api/requests";
 
 const CardComments = ({ post }) => {
 
@@ -19,7 +20,7 @@ const CardComments = ({ post }) => {
         e.preventDefault();
         if (text) {
             try {
-                await axios.patch(`/api/post/comments/${post._id}`, {
+                await axios.patch(`${requests.newComment}/${post._id}`, {
                     commenterId: user._id,
                     commenterPseudo: user._pseudo,
                     text
@@ -42,8 +43,8 @@ const CardComments = ({ post }) => {
                     >
                         <div className="left-part">
                             <img src={
-                                !isEmpty(users[0]) && users.map((elt) => {
-                                    if(elt._id === comment.commenterId) return elt.picture;
+                                !isEmpty(users[0]) && users.map((user) => {
+                                    if(user._id === comment.commenterId) return requests.baseURL + user.picture.slice(1);
                                     else return null;
                                 }).join("")
                             } alt="commenter-pic" />

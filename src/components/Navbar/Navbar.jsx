@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/icon.png";
 import login from "../../assets/icons/login.svg";
 import { AuthContext } from "../../context/AppContext";
-import LogOut from "../LogOut/LogOut";
+import Logout from "../Logout/Logout";
 import { useSelector } from 'react-redux';
 import { selectUser } from "../../redux/reducers/userSlice";
 
@@ -32,7 +32,7 @@ const Navbar = () => {
                                 <h5>Bienvenue {user.pseudo}</h5>
                             </Link>
                         </li>
-                        <LogOut />
+                        <Logout />
                     </ul>
                 ) : (
                     <ul>

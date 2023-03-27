@@ -5,6 +5,7 @@ import { selectPost } from "../../redux/reducers/postSlice";
 import { getTrends } from "../../redux/reducers/trendsSlice";
 import { selectUsers } from "../../redux/reducers/usersSlice";
 import { isEmpty } from '../../utils/utils';
+import requests from "../../api/requests";
 
 const Trends = () => {
 
@@ -24,7 +25,6 @@ const Trends = () => {
         }
     }, [posts, dispatch])
     
-
     return (
         <div className="trending-container">
             <h4>Trending</h4>
@@ -35,7 +35,7 @@ const Trends = () => {
                             return (
                                 <li key={post._id}>
                                     <div>
-                                        {post.picture && <img src={post.picture} alt="post-pic" />}
+                                        {post.picture && <img src={requests.baseURL + post.picture.slice(1)} alt="post-pic" />}
                                         {post.video && (
                                             <iframe
                                                 src={post.video}
@@ -47,9 +47,8 @@ const Trends = () => {
                                         )}
                                         {isEmpty(post.picture) && isEmpty(post.video) && (
                                             <img src={users[0] && users.map((user) => {
-                                                if (user._id === post.posterId) {
-                                                    return user.picture;                                                    
-                                                } return null;
+                                                if (user._id === post.posterId) return requests.baseURL + user.picture.slice(1);                                                    
+                                                else return null;
                                             }).join("")} alt="profil-pic" />
                                         )}
                                     </div>

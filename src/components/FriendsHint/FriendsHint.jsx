@@ -7,6 +7,7 @@ import { selectUser } from '../../redux/reducers/userSlice';
 import { selectUsers } from '../../redux/reducers/usersSlice';
 import { isEmpty } from '../../utils/utils';
 import FollowHandler from '../FollowHandler/FollowHandler';
+import requests from '../../api/requests';
 
 const FriendsHint = () => {
 
@@ -69,7 +70,7 @@ const FriendsHint = () => {
                             if (elt === users[i]._id) {
                                 return (
                                     <li className="user-hint" key={elt}>
-                                        <img src={users[i].picture} alt="user-pic" />
+                                        <img src={requests.baseURL + users[i].picture.slice(1)} alt="user-pic" />
                                         <p>{users[i].pseudo}</p>
                                         <FollowHandler idToFollow={users[i]._id} type={"suggestion"} />
                                     </li>

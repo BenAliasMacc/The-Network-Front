@@ -6,7 +6,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
     try {
         //const response = await fetch(`url`); //where you want to fetch data
         //Your Axios code part.
-        const response = await axios.get(requests.getUser + userId);//where you want to fetch data
+        const response = await axios.get(`${requests.getUser}/${userId}`);//where you want to fetch data
         return response.data;
     } catch (error) {
         console.log(error);

@@ -7,6 +7,7 @@ import heartFilled from '../../assets/icons/heart-filled.svg';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { likePost, unlikePost } from '../../redux/reducers/postSlice';
+import requests from '../../api/requests';
 
 const LikeButton = ({ post }) => {
 
@@ -20,7 +21,7 @@ const LikeButton = ({ post }) => {
     
     const handleLike = () => {
         try {
-            axios.patch(`/api/post/like-post/${post._id}`, { id: userId, postId: post._id });
+            axios.patch(`${requests.likePost}/${post._id}`, { id: userId, postId: post._id });
             dispatch(likePost({postId: post._id, userId}));
             setLiked(true);
         } catch (error) {
@@ -30,7 +31,7 @@ const LikeButton = ({ post }) => {
 
     const handleUnlike = async () => {
         try {
-            await axios.patch(`/api/post/unlike-post/${post._id}`, { id: userId, postId: post._id });
+            await axios.patch(`${requests.unlikePost}/${post._id}`, { id: userId, postId: post._id });
             dispatch(unlikePost({postId: post._id, userId}));
             setLiked(false);
         } catch (error) {

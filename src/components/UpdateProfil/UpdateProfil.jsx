@@ -8,6 +8,8 @@ import { dateParser } from '../../utils/utils';
 import LeftNav from '../LeftNav/LeftNav';
 import UploadImg from '../UploadImg/UploadImg';
 import FollowHandler from '../FollowHandler/FollowHandler';
+import requests from "../../api/requests";
+import { isEmpty } from '../../utils/utils';
 
 const UpdateProfil = () => {
 
@@ -20,7 +22,8 @@ const UpdateProfil = () => {
     // const [password, setPassword] = useState(user.password);  
     const [followingModal, setFollowingModal] = useState(false);
     const [followersModal, setFollowersModal] = useState(false);
-    const dispatch = useDispatch();
+    const userPicture = !isEmpty(user) && requests.baseURL + user.picture.slice(1);
+    const dispatch = useDispatch();    
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -31,7 +34,7 @@ const UpdateProfil = () => {
             email,
         }
         try {
-            const res = await axios.put(`/api/user/${user._id}`, updateUser)
+            const res = await axios.put(requests.getUser + user._id, updateUser)
             dispatch(editUser(res.data));
             setUpdateForm(false);
         } catch (error) {
@@ -47,7 +50,7 @@ const UpdateProfil = () => {
             <div className="updateProfil-container">
                 <div className="left-part">
                     <h3>Photo de profil</h3>
-                    <img src={user.picture} alt="user-pic" />
+                    <img src={userPicture.toString()} alt="user-pic" />
                     <UploadImg />
                 </div>
                 <div className="right-part">
@@ -85,6 +88,7 @@ const UpdateProfil = () => {
                             {users.map((elt) => {                                
                                 for (let i = 0; i < user.following.length; i++) {
                                     if (elt._id === user.following[i]) {
+                                        console.log(elt.picture);
                                         return (
                                             <li key={uuid()}>
                                                 <img src={elt.picture} alt="user-pic" />

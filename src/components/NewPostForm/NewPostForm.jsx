@@ -7,6 +7,7 @@ import { dateParser, isEmpty } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 import pictureIcon from '../../assets/icons/picture.svg';
 import axios from 'axios';
+import requests from "../../api/requests";
 import { fetchPost } from '../../redux/reducers/postSlice';
 
 const NewPostForm = () => {
@@ -17,31 +18,29 @@ const NewPostForm = () => {
     const [video, setVideo] = useState("");
     const [file, setFile] = useState();
     const { user } = useSelector(selectUser);
+    const userPicture = !isEmpty(user) && requests.baseURL + user.picture.slice(1);
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (message || postPicture || video) {
             const data = new FormData();
-            const filename =  user._id + Date.now();
-            data.append('name', filename);
             data.append('posterId', user._id);
             data.append('message', message);
-            if (file) data.append("file", file);
+            if (file) data.append("file", file)
             data.append("video", video);
-            try {
-                await axios.post('/api/post/', data);
-                dispatch(fetchPost());
-                cancelPost();
-            } catch (error) {
-                console.log(error);
-            }            
+
+            console.log(data);
+                
+            await axios.post(requests.post, data, {withCredentials: true});
+            dispatch(fetchPost());
+            cancelPost();            
         } else {
             alert("Veuillez entrer un message")
         }
     };
 
-    const handlePicture = (e) => {
+    const handlePicture = (e) => {  
         setPostPicture(URL.createObjectURL(e.target.files[0]));
         setFile(e.target.files[0]);
         setVideo("");
@@ -71,7 +70,6 @@ const NewPostForm = () => {
         };
         handleVideo();
     }, [user, message, video]);
-    
 
     return (
         <div className="post-container">
@@ -97,10 +95,10 @@ const NewPostForm = () => {
                     </div>
                     <Link to="/profil">
                         <div className="user-info">
-                            <img src={user.picture} alt="user-img" />
+                            <img src={userPicture} alt="user-img" />
                         </div>
                     </Link>
-                    <div className="post-form">
+                    <form className="post-form" encType="multipart/form-data">
                         <textarea 
                             name='message' 
                             id='message' 
@@ -111,7 +109,7 @@ const NewPostForm = () => {
                         {message || postPicture || video.length > 20 ? (
                             <li className="card-container">
                                 <div className="card-left">
-                                    <img src={user.picture} alt="user-pic" />
+                                    <img src={userPicture} alt="user-pic" />
                                 </div>
                                 <div className="card-right">
                                     <div className="pseudo">
@@ -134,7 +132,7 @@ const NewPostForm = () => {
                                 </div>
                             </li>
                         ): null}
-                        <form className="footer-form" onSubmit={handleSubmit} encType="multipart/form-data" >
+                        <div className="footer-form">
                             <div className="icon">
                                 {isEmpty(video) && (
                                     <>  
@@ -152,10 +150,10 @@ const NewPostForm = () => {
                                 {message || postPicture || video.length > 20 ? (
                                     <button className='cancel' onClick={cancelPost}>Annuler Message</button>
                                 ): null}
-                                <button className="send">Envoyer</button>
+                                <button className="send" onClick={handleSubmit}>Envoyer</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </>
             )}
         </div>
