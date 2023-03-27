@@ -13,8 +13,7 @@ const Logout = () => {
     const handleLogout = async () => {
       await axios({
         method: "get",
-        url: requests.logout,
-        withCredentials: true,
+        url: requests.logout,        
       })
         .then(() => removeCookie("jwt"))
         .catch((err) => console.log(err));
