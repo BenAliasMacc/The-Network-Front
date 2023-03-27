@@ -4,6 +4,7 @@ import { AuthContext } from "./context/AppContext";
 import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { fetchUser } from "./redux/reducers/userSlice";
+import requests from "./api/requests";
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
     const fetchToken = async () => {
       await axios({
         method: "get",
-        url: `http://localhost:5000/jwtid`,
+        url: `${requests.baseURL}/jwtid`,
         withCredentials: true,
       })
         .then((res) => {
