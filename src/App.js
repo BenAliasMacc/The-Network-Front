@@ -16,7 +16,9 @@ function App() {
       await axios({
         method: "get",
         url: `${requests.baseURL}/jwtid`,
-        withCredentials: true,
+      },
+      {
+        withCredentials: true
       })
         .then((res) => {
           setUserId(res.data);
