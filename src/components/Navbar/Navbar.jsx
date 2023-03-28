@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/icon.png";
 import login from "../../assets/icons/login.svg";
 import { AuthContext } from "../../context/AppContext";
-import Logout from "../Logout/Logout";
+import Logout from "../../components/Logout/Logout";
 import { useSelector } from 'react-redux';
 import { selectUser } from "../../redux/reducers/userSlice";
 
