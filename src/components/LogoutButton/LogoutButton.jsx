@@ -3,7 +3,7 @@ import cookie from "js-cookie";
 import logoutIcon from "../../assets/icons/logout.svg";
 import requests from "../../api/requests";
 
-const Logout = () => {
+const LogoutButton = () => {
     const removeCookie = (key) => {
       if (window !== "undefined") {
         cookie.remove(key, { expires: 1 });
@@ -31,4 +31,4 @@ const Logout = () => {
     )
 };
 
-export default Logout;
+export default LogoutButton;
