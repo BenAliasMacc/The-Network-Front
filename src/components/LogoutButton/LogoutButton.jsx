@@ -14,8 +14,6 @@ const LogoutButton = () => {
       await axios({
         method: "get",
         url: requests.logout,        
-      },
-      {
         withCredentials: true,
       })
         .then(() => removeCookie("jwt"))
