@@ -46,14 +46,15 @@
         button {
           background: $color-8;
           color: $color-5;
+          width: 90px;
           padding: 10px 24px 8px;
           transition: 0.2s;
           border-radius: 20px;
           font-size: 0.9rem;
 
           &:hover {
-            background: $color-4;
-            color: $color-1;
+            letter-spacing: 2px;
+            width: 100px;
           }
         }
       }
