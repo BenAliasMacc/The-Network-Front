@@ -1,12 +1,12 @@
 @import './settings';
 @import '../pages/Home/Home.scss';
 @import '../pages/Profil/Profil.scss';
-@import './pages/trending.scss';
+@import '../pages/Trending/Trending.scss';
 @import '../components/Card/Card.scss';
 @import '../components/CardComments/CardComments.scss';
-@import './components/newPostForm.scss';
-@import './components/friendsHint.scss';
-@import './components/trends.scss';
+@import '../components/NewPostForm/NewPostForm.scss';
+@import '../components/FriendsHint/FriendsHint.scss';
+@import '../components/Trends/Trends.scss';
 @import '../components/LeftNav/LeftNav.scss';
 @import '../components/Log/Log.scss';
 @import '../components/Navbar/Navbar.scss';

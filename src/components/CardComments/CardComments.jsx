@@ -16,13 +16,15 @@ const CardComments = ({ post }) => {
     const { user } = useSelector(selectUser);
     const dispatch = useDispatch();
 
+    console.log(user);
+
     const handleComment = async (e) => {
         e.preventDefault();
         if (text) {
             try {
                 await axios.patch(`${requests.newComment}/${post._id}`, {
                     commenterId: user._id,
-                    commenterPseudo: user._pseudo,
+                    commenterPseudo: user.pseudo,
                     text
                 });
             } catch (error) {
@@ -32,7 +34,7 @@ const CardComments = ({ post }) => {
             setText("");
         }
     };
-    
+    console.log(post);
     return (
         <div className="comments">
             {post.comments.map((comment) => {

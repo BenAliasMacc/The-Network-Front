@@ -20,7 +20,7 @@ const Navbar = () => {
                     <Link>
                         <div className="logo">
                             <img src={logo} alt="logo" />
-                            <h3>Raccoont</h3>
+                            <h3>The Network</h3>
                         </div>
                     </Link>
                 </div>

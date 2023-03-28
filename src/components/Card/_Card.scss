@@ -8,6 +8,8 @@
   margin: 8px auto;
   position: relative;
   min-height: 100px;
+  background: $color-5;
+  box-shadow: $shadow-1;
 
   @media screen and (max-width: 590px) {
     grid-template-columns: 1fr;
@@ -64,6 +66,7 @@
 
       .pseudo {
         display: flex;
+        color: $color-1;
 
         @media screen and (max-width: 590px) {
           margin-left: 52px;
@@ -73,7 +76,7 @@
         }
 
         span {
-          transform: translate(0px, -5px);
+          transform: translate(0px, -5px);          
 
           @media screen and (max-width: 440px) {
             margin: 0px 0 -10px;
@@ -92,19 +95,13 @@
               transform: scale(1.2) translate(0px, 0px);
             }
           }
-
-          .fas {
-            color: $color-1;
-          }
-          .far {
-            color: $color-2;
-          }
         }
       }
 
       span {
         font-style: italic;
         font-family: $font-1;
+        color: $color-1;
 
         @media screen and (max-width: 440px) {
           transform: translate(52px, -20px);
@@ -114,6 +111,7 @@
     p {
       margin: 3px 0 9px;
       font-size: 1.1rem;
+      color: $color-4;
 
       @media screen and (max-width: 440px) {
         margin-top: -18px;
@@ -201,6 +199,7 @@
           font-size: 1.02rem;
           position: absolute;
           transform: translate(29px, 2px);
+          color: $color-4;
         }
       }
     }
