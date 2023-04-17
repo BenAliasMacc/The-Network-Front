@@ -34,7 +34,7 @@ const Card = ({ post }) => {
         };
 
         try {
-            await axios.put(requests.post + post._id, newPost)
+            await axios.put(`${requests.post}/${post._id}`, newPost)
         } catch (error) {
             console.log(error);
         }
